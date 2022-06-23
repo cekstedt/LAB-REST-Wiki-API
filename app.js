@@ -24,49 +24,46 @@ const articleSchema = new mongoose.Schema({
 });
 const Article = mongoose.model("Article", articleSchema);
 
-// Get routes.
+// Basic GET routes.
 
 app.get("/", function(req, res) {
   res.send("Hello");
 });
 
-app.get("/articles", function(req, res) {
-  Article.find(function(err, foundArticles) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(foundArticles);
-    }
-  });
-});
+// "/articles" route commands.
 
-// POST routes.
-
-app.post("/articles", function(req, res) {
-  const newArticle = new Article({
-    title: req.body.title,
-    content: req.body.content
+app.route("/articles")
+  .get(function(req, res) {
+    Article.find(function(err, foundArticles) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(foundArticles);
+      }
+    });
+  })
+  .post(function(req, res) {
+    const newArticle = new Article({
+      title: req.body.title,
+      content: req.body.content
+    });
+    newArticle.save(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Successfully added a new article.");
+      }
+    });
+  })
+  .delete(function(req, res) {
+    Article.deleteMany(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Successfully deleted all articles.");
+      }
+    });
   });
-  newArticle.save(function(err) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send("Successfully added a new article.");
-    }
-  });
-});
-
-// DELETE routes.
-
-app.delete("/articles", function(req, res) {
-  Article.deleteMany(function(err) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send("Successfully deleted all articles.");
-    }
-  });
-});
 
 // Server initialization.
 
