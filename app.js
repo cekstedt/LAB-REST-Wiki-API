@@ -48,10 +48,22 @@ app.post("/articles", function(req, res) {
     content: req.body.content
   });
   newArticle.save(function(err) {
-    if (!err) {
-      res.send("Successfully added a new article.");
-    } else {
+    if (err) {
       res.send(err);
+    } else {
+      res.send("Successfully added a new article.");
+    }
+  });
+});
+
+// DELETE routes.
+
+app.delete("/articles", function(req, res) {
+  Article.deleteMany(function(err) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send("Successfully deleted all articles.");
     }
   });
 });
