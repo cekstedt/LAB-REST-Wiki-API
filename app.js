@@ -40,6 +40,22 @@ app.get("/articles", function(req, res) {
   });
 });
 
+// POST routes.
+
+app.post("/articles", function(req, res) {
+  const newArticle = new Article({
+    title: req.body.title,
+    content: req.body.content
+  });
+  newArticle.save(function(err) {
+    if (!err) {
+      res.send("Successfully added a new article.");
+    } else {
+      res.send(err);
+    }
+  });
+});
+
 // Server initialization.
 
 app.listen(PORT, function() {
