@@ -118,6 +118,20 @@ app
         }
       }
     );
+  })
+  .delete(function(req, res) {
+    Article.deleteOne(
+      {
+        title: req.params.articleTitle
+      },
+      function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send("Successfully deleted article.");
+        }
+      }
+    );
   });
 
 // Server initialization.
