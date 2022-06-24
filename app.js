@@ -65,6 +65,22 @@ app.route("/articles")
     });
   });
 
+// "/articles/:articleName" route commands.
+
+app.route("/articles/:articleTitle")
+
+  .get(function(req, res) {
+    Article.findOne({ title: req.params.articleTitle }, function(err, foundArticle) {
+      if (err) {
+        console.log(err);
+      } else if (foundArticle) {
+        res.send(foundArticle);
+      } else {
+        res.send("No article matching that title was found.");
+      }
+    });
+  });
+
 // Server initialization.
 
 app.listen(PORT, function() {
