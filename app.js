@@ -10,7 +10,7 @@ const ejs = require("ejs");
 
 const app = express();
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 mongoose.connect(process.env.MONGO_DB);
 
@@ -18,10 +18,7 @@ mongoose.connect(process.env.MONGO_DB);
 
 const PORT = process.env.PORT;
 
-const articleSchema = new mongoose.Schema({
-  title: String,
-  content: String
-});
+const articleSchema = new mongoose.Schema({title: String, content: String});
 const Article = mongoose.model("Article", articleSchema);
 
 // Basic GET routes.
@@ -32,7 +29,8 @@ app.get("/", function(req, res) {
 
 // "/articles" route commands.
 
-app.route("/articles")
+app
+  .route("/articles")
   .get(function(req, res) {
     Article.find(function(err, foundArticles) {
       if (err) {
@@ -67,18 +65,41 @@ app.route("/articles")
 
 // "/articles/:articleName" route commands.
 
-app.route("/articles/:articleTitle")
-
+app
+  .route("/articles/:articleTitle")
   .get(function(req, res) {
-    Article.findOne({ title: req.params.articleTitle }, function(err, foundArticle) {
-      if (err) {
-        console.log(err);
-      } else if (foundArticle) {
-        res.send(foundArticle);
-      } else {
-        res.send("No article matching that title was found.");
+    Article.findOne(
+      {
+        title: req.params.articleTitle
+      },
+      function(err, foundArticle) {
+        if (err) {
+          console.log(err);
+        } else if (foundArticle) {
+          res.send(foundArticle);
+        } else {
+          res.send("No article matching that title was found.");
+        }
       }
-    });
+    );
+  })
+  .put(function(req, res) {
+    Article.replaceOne(
+      {
+        title: req.params.articleTitle
+      },
+      {
+        title: req.body.title,
+        content: req.body.content
+      },
+      function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send("Successfully updated article.");
+        }
+      }
+    );
   });
 
 // Server initialization.
