@@ -10,15 +10,15 @@ const ejs = require("ejs");
 
 const app = express();
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect(process.env.MONGO_DB);
+mongoose.connect(process.env.MONGO_DB + "/wikiDB");
 
 // Global Variables.
 
 const PORT = process.env.PORT;
 
-const articleSchema = new mongoose.Schema({title: String, content: String});
+const articleSchema = new mongoose.Schema({ title: String, content: String });
 const Article = mongoose.model("Article", articleSchema);
 
 // Basic GET routes.

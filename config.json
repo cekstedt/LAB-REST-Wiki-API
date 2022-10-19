@@ -1,0 +1,11 @@
+{
+  "name": "REST Wiki API",
+  "repo": "https://github.com/cekstedt/LAB-REST-Wiki-API",
+  "challenger": "London App Brewery",
+  "challenge page": "https://www.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/13028250",
+  "hosted": "https://lab-rest-wiki-api.onrender.com",
+  "original": false,
+  "personal": false,
+  "thumbnail": null,
+  "technologies": ["js", "node", "express", "mongodb", "mongoose", "rest"]
+}
