@@ -7,5 +7,7 @@
   "original": false,
   "personal": false,
   "thumbnail": null,
-  "technologies": ["js", "node", "express", "mongodb", "mongoose", "rest"]
+  "technologies": ["js", "node", "express", "mongodb", "mongoose", "rest"],
+  "status": "complete",
+  "priority": "done"
 }
